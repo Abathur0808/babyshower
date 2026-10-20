@@ -1,0 +1,370 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sky-top: #81bef7;
+  --sky-mid: #a9d1fa;
+  --sky-bottom: #cde4fb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-body text-[#333333] antialiased;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-bottom) 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Texto amarillo Nimbus — degradado brillante */
+.text-gold {
+  background: linear-gradient(
+    160deg,
+    #a1720e 0%,
+    #eeb815 25%,
+    #fce87a 45%,
+    #facc2e 60%,
+    #c9950e 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 4px rgba(161, 114, 14, 0.3));
+}
+
+/* Título estilo cómic/anime: amarillo con contorno azul profundo */
+.title-comic {
+  color: #facc2e;
+  -webkit-text-stroke: 2px #0b2161;
+  paint-order: stroke fill;
+  text-shadow:
+    0 3px 0 #0b2161,
+    0 6px 14px rgba(11, 33, 97, 0.35);
+}
+
+/* Tarjeta de cristal celeste */
+.glass-card {
+  @apply rounded-3xl border border-white/60 bg-white/60 shadow-xl shadow-sky-400/25 backdrop-blur-md;
+}
+
+/* Cajas con vida: se levantan al hover con sombra azul-dorada */
+.card-pop {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-pop:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 18px 40px rgba(30, 63, 102, 0.25),
+    0 0 0 1px rgba(250, 204, 46, 0.45),
+    0 0 22px rgba(250, 204, 46, 0.25);
+}
+
+/* ===== Tarjeta "Guerrero Z" — viñeta de manga/anime ===== */
+
+/* Contenedor: blanco, borde azul marino grueso, sombra sólida desplazada */
+.card-anime {
+  background-color: #ffffff;
+  border: 4px solid #0b2161;
+  border-radius: 24px;
+  box-shadow: 12px 12px 0 rgba(129, 190, 247, 0.6);
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-anime:hover {
+  transform: translateY(-4px);
+  box-shadow: 14px 14px 0 rgba(129, 190, 247, 0.75);
+}
+
+/* Título estilo cómic: amarillo Nimbus, contorno azul, sombra naranja sólida */
+.titulo-baby {
+  font-family: var(--font-comic), "Bangers", cursive;
+  color: #facc2e;
+  letter-spacing: 2px;
+  -webkit-text-stroke: 2px #0b2161;
+  paint-order: stroke fill;
+  text-shadow: 5px 5px 0 #f0712a;
+}
+
+/* Botones de navegación estilo Esfera del Dragón */
+.btn-esfera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffae42, #f0712a);
+  border: 3px solid #0b2161;
+  box-shadow:
+    inset -4px -4px 8px rgba(0, 0, 0, 0.3),
+    3px 3px 0 rgba(11, 33, 97, 0.2),
+    0 6px 14px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+
+/* Iconos transformados en Esferas del Dragón */
+.icono-esfera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffae42, #f0712a);
+  border: 3px solid #0b2161;
+  box-shadow:
+    inset -4px -4px 8px rgba(0, 0, 0, 0.3),
+    3px 3px 0 rgba(11, 33, 97, 0.2);
+  color: #ffffff;
+  flex-shrink: 0;
+  @apply transition-transform duration-200;
+}
+
+.icono-esfera:hover {
+  transform: scale(1.1) rotate(6deg);
+}
+
+/* Etiqueta de cada dato (FECHA, HORA, LUGAR): naranja, negrita, mayúsculas */
+.etiqueta {
+  display: block;
+  color: #f0712a;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Valor del dato (Sábado 5, 7:30 PM): gris oscuro, negrita */
+.valor {
+  display: block;
+  color: #333333;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* ===== Sobre animado que revela la tarjeta ===== */
+
+.envelope {
+  position: relative;
+  width: 17rem;
+  height: 11.5rem;
+  perspective: 900px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+  transform: translateY(-5px);
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #ffffff, #e8f3fe);
+  border: 4px solid #0b2161;
+  border-radius: 18px;
+  box-shadow: 10px 10px 0 rgba(129, 190, 247, 0.6);
+}
+
+/* Carta que asoma por dentro */
+.envelope-letter {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 12px;
+  bottom: 12px;
+  background: #ffffff;
+  border: 3px solid #cde4fb;
+  border-radius: 10px;
+  z-index: 1;
+  transition:
+    transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.15s,
+    opacity 0.3s ease 0.5s;
+}
+
+.envelope.opened .envelope-letter {
+  transform: translateY(-60%);
+  opacity: 0;
+}
+
+/* Solapa triangular: gira hacia atrás en 3D al abrir */
+.envelope-flap {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+  height: 55%;
+  background: linear-gradient(160deg, #81bef7, #a9d1fa);
+  clip-path: polygon(0 0, 100% 0, 50% 98%);
+  transform-origin: top center;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  backface-visibility: hidden;
+  z-index: 2;
+}
+
+.envelope.opened .envelope-flap {
+  transform: rotateX(-178deg);
+}
+
+/* Sello de esfera del dragón sobre la punta de la solapa */
+.envelope-seal {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.envelope.opened .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Botón estilo Dragon Ball: naranja del traje, borde/sombra azul profundo,
+   hover con scale 1.05, sombra que crece y brillo amarillo que barre */
+.btn-goku {
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-goku-navy px-7 py-3.5 font-display text-lg font-bold tracking-wide text-white transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gold-400/60 active:scale-95;
+  background: linear-gradient(160deg, #f98d4f 0%, #f0712a 55%, #d95a17 100%);
+  box-shadow:
+    0 4px 0 #0b2161,
+    0 10px 18px rgba(11, 33, 97, 0.35);
+}
+
+.btn-goku:hover {
+  box-shadow:
+    0 6px 0 #0b2161,
+    0 16px 28px rgba(11, 33, 97, 0.45);
+}
+
+/* Barrido de brillo amarillo al pasar el cursor */
+.btn-goku::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(250, 204, 46, 0.55) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.btn-goku:hover::after {
+  left: 120%;
+}
+
+/* Variante secundaria: blanca con acentos azul profundo */
+.btn-sky {
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-goku-navy bg-white/90 px-7 py-3.5 font-display text-lg font-bold tracking-wide text-goku-blue shadow-md transition-all duration-200 hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gold-400/60 active:scale-95;
+  box-shadow:
+    0 4px 0 #0b2161,
+    0 10px 18px rgba(11, 33, 97, 0.25);
+}
+
+.btn-sky:hover {
+  box-shadow:
+    0 6px 0 #0b2161,
+    0 16px 28px rgba(11, 33, 97, 0.35);
+}
+
+.btn-disabled {
+  @apply inline-flex cursor-not-allowed items-center justify-center gap-2 rounded-full border-2 border-slate-300/70 bg-slate-200/80 px-7 py-3.5 font-display text-lg font-bold text-slate-400;
+}
+
+/* Nube decorativa reutilizable (SVG inline en componentes) */
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(-15vw);
+  }
+  100% {
+    transform: translateX(115vw);
+  }
+}
+
+.cloud-drifting {
+  animation: cloud-drift linear infinite;
+}
+
+/* Variante con vaivén vertical: la nube dibuja un arco suave al cruzar */
+@keyframes cloud-drift-arc {
+  0% {
+    transform: translateX(-15vw) translateY(0);
+  }
+  25% {
+    transform: translateX(25vw) translateY(-14px);
+  }
+  50% {
+    transform: translateX(50vw) translateY(4px);
+  }
+  75% {
+    transform: translateX(80vw) translateY(-10px);
+  }
+  100% {
+    transform: translateX(115vw) translateY(0);
+  }
+}
+
+.cloud-drifting-arc {
+  animation: cloud-drift-arc linear infinite;
+}
+
+/* Brillo suave para esferas del dragón */
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(4deg);
+  }
+}
+
+.orb-float {
+  animation: orb-float 6s ease-in-out infinite;
+}
+
+/* Respeto a prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Libro horizontal: oculta la barra de scroll del paginador */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Rebote horizontal para el indicador "desliza" */
+@keyframes bouncex {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
