@@ -18,14 +18,14 @@ const BABY_WARRIORS = [
   {
     src: "/images/ssj2.png",
     alt: "Goku bebé gateando",
-    cls: "animate-drift right-[2%] bottom-[15%] z-20 w-28 sm:right-[28%] sm:bottom-[6%] sm:w-44",
+    cls: "animate-drift right-[2%] bottom-0 z-20 w-28 sm:right-[28%] sm:bottom-[6%] sm:w-44",
     delay: "0.25s",
     dur: "5.2s",
   },
   {
     src: "/images/ssj3.png",
     alt: "Goku bebé guerrero",
-    cls: "animate-drift left-[1%] bottom-[18%] z-20 w-20 sm:left-[10%] sm:bottom-[3%] sm:w-28",
+    cls: "animate-drift left-[1%] bottom-0 z-20 w-20 sm:left-[10%] sm:bottom-[3%] sm:w-28",
     delay: "0.4s",
     dur: "4.2s",
   },
