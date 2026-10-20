@@ -1,19 +1,35 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 import Image from "next/image";
 import NimbusCloud from "@/components/art/NimbusCloud";
 import DragonBall from "@/components/art/DragonBall";
 
+type Props = {
+  /** Música de fondo de la invitación: se atenúa mientras suena el efecto. */
+  musicRef?: RefObject<HTMLAudioElement | null>;
+};
+
 /** Cierre emotivo de la invitación. */
-export default function ClosingSection() {
+export default function ClosingSection({ musicRef }: Props) {
   const sfx = useRef<HTMLAudioElement | null>(null);
 
-  // Toca el kamehameha: suena desde el inicio aunque se repita el clic
+  // Toca el kamehameha: suena desde el inicio aunque se repita el clic.
+  // Ducking: la música de fondo baja mucho mientras dura el audio.
   const playSfx = () => {
     sfx.current ??= new Audio("/audio/increible.mp3");
     sfx.current.currentTime = 0;
-    void sfx.current.play().catch(() => {});
+
+    const music = musicRef?.current;
+    const prevVolume = music?.volume ?? 1;
+    if (music) music.volume = 0;
+
+    const restore = () => {
+      if (music) music.volume = prevVolume;
+    };
+
+    sfx.current.addEventListener("ended", restore, { once: true });
+    void sfx.current.play().catch(restore);
   };
 
   return (

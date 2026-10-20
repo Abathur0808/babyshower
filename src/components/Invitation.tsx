@@ -134,7 +134,7 @@ export default function Invitation() {
           </div>
           <div className="book-page flex h-full w-screen flex-none snap-start snap-always overflow-y-auto">
             <div className="m-auto w-full">
-              <ClosingSection />
+              <ClosingSection musicRef={audioRef} />
             </div>
           </div>
         </main>
