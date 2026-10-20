@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { mapsUrl, whatsappUrl } from "@/config/event";
+import { mapsUrl, whatsappContacts } from "@/config/event";
 
 function WhatsAppIcon() {
   return (
@@ -18,9 +18,9 @@ function MapPinIcon() {
   );
 }
 
-/** Botones de acción: RSVP por WhatsApp y ubicación en Maps. */
+/** Botones de acción: RSVP por WhatsApp (mamá y papá) y ubicación en Maps. */
 export default function ActionsSection() {
-  const wa = whatsappUrl();
+  const contacts = whatsappContacts();
   const maps = mapsUrl();
 
   return (
@@ -42,16 +42,24 @@ export default function ActionsSection() {
           className="absolute bottom-0 left-0 h-auto w-full"
         />
       </div>
-      {wa ? (
-        <a
-          href={wa}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-goku w-full max-w-sm"
-        >
-          <WhatsAppIcon />
-          Confirmar Asistencia
-        </a>
+      {contacts.length > 0 ? (
+        <div className="flex w-full max-w-sm flex-col gap-3">
+          <p className="text-center font-display text-sm font-bold uppercase tracking-[0.15em] text-sky-700">
+            Confirmar Asistencia
+          </p>
+          {contacts.map((c) => (
+            <a
+              key={c.name}
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-goku w-full"
+            >
+              <WhatsAppIcon />
+              Avisar a {c.name}
+            </a>
+          ))}
+        </div>
       ) : (
         <div className="flex w-full max-w-sm flex-col items-center gap-1">
           <span className="btn-disabled w-full" aria-disabled="true">
@@ -59,7 +67,7 @@ export default function ActionsSection() {
             Confirmar Asistencia
           </span>
           <p className="text-xs text-sky-700">
-            Configuración pendiente: falta el número de WhatsApp.
+            Configuración pendiente: faltan los números de WhatsApp.
           </p>
         </div>
       )}

@@ -28,10 +28,15 @@ export const eventConfig = {
   address: "Luis Cruz Martines 1316",
 
   /**
-   * Número de WhatsApp en formato internacional, solo dígitos (sin "+", espacios ni guiones).
-   * Ejemplo: "59899123456". Vacío = botón deshabilitado con aviso de configuración pendiente.
+   * Contactos de WhatsApp para confirmar asistencia (mamá y papá).
+   * Número en formato internacional, solo dígitos (sin "+", espacios ni guiones).
+   * Ejemplo: "59899123456". Vacío = ese botón queda deshabilitado.
+   * (wa.me solo permite un número por enlace: un botón por persona.)
    */
-  whatsappNumber: "",
+  whatsappContacts: [
+    { name: "Mamá", number: "" },
+    { name: "Papá", number: "" },
+  ],
 
   /** Mensaje predefinido para la confirmación por WhatsApp. */
   whatsappMessage:
@@ -46,9 +51,18 @@ export const eventConfig = {
    */
   giftUrl: "",
 
-  /** Texto con sugerencias de regalo que se despliega al tocar el botón. */
-  giftSuggestions:
-    "Pañales talla RN y M, ropita 0 a 3 meses, o lo que nazca del corazón. ¡Gracias por acompañarnos!",
+  /** Texto de la lista de deseos que se despliega al tocar el botón. */
+  giftSuggestions: `🎁 Lista de deseos para nuestro bebé 🩵
+
+Si deseas regalarnos algo para esta nueva aventura, algunas cositas que nos vendrían muy bien son:
+
+✨ Ropita de 3 a 6 meses.
+✨ Pañales talla M en adelante.
+✨ Bodys en colores neutros.
+✨ Calcetinitos.
+✨ Kits de higiene para bebé.
+
+Y, por supuesto, ¡cualquier regalito que nazca de tu cariño será siempre bienvenido! Lo más importante es compartir contigo esta hermosa etapa y recibir todo el amor con el que quieras acompañarnos. 🩵☁️`,
 
   /** Mensaje personalizado de los anfitriones. */
   personalMessage:
@@ -61,19 +75,20 @@ export const eventConfig = {
   audioSrc: "/audio/angeles-fuimos.mp3",
 } as const;
 
-/** Dígitos del número de WhatsApp listos para wa.me, o null si no está configurado. */
-export function whatsappDigits(): string | null {
-  const digits = eventConfig.whatsappNumber.replace(/\D/g, "");
-  return digits.length >= 8 ? digits : null;
-}
-
-/** URL wa.me con mensaje codificado, o null si falta el número. */
-export function whatsappUrl(): string | null {
-  const digits = whatsappDigits();
-  if (!digits) return null;
-  return `https://wa.me/${digits}?text=${encodeURIComponent(
-    eventConfig.whatsappMessage
-  )}`;
+/** Contactos con URL wa.me (mensaje codificado) listos para usar; se omiten los sin número. */
+export function whatsappContacts(): { name: string; url: string }[] {
+  return eventConfig.whatsappContacts
+    .map((c) => ({
+      name: c.name,
+      digits: c.number.replace(/\D/g, ""),
+    }))
+    .filter((c) => c.digits.length >= 8)
+    .map((c) => ({
+      name: c.name,
+      url: `https://wa.me/${c.digits}?text=${encodeURIComponent(
+        eventConfig.whatsappMessage
+      )}`,
+    }));
 }
 
 /** URL de Google Maps para la dirección configurada, o null si falta. */

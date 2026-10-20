@@ -81,7 +81,7 @@ export default function GiftSection() {
   return (
     <section
       className="relative flex flex-col items-center gap-4 overflow-hidden px-6 py-10 text-center"
-      aria-label="Sugerencia de regalo"
+      aria-label="Lista de deseos"
     >
       {/* Esferas decorativas */}
       <DragonBall stars={4} className="orb-float absolute left-[8%] top-[16%] w-8 animate-glowpulse sm:w-12" />
@@ -91,7 +91,7 @@ export default function GiftSection() {
       {/* Contenido por encima de los guerreros decorativos */}
       <div className="relative z-10 flex flex-col items-center gap-4">
       <h3 className="titulo-baby text-4xl sm:text-5xl">
-        Sugerencia de regalo
+        Lista de Deseos
       </h3>
       <p className="max-w-md font-display font-bold text-sky-800">
         Tu presencia es el mejor regalo, pero si quieres sumar un detalle para el pequeño guerrero, aquí tienes una idea.
@@ -105,7 +105,7 @@ export default function GiftSection() {
           className="btn-regalo w-full max-w-sm"
         >
           <GiftIcon />
-          Sugerencia de Regalo
+          Lista de Deseos
         </a>
       ) : (
         <div className="flex w-full max-w-sm flex-col items-center">
@@ -122,15 +122,15 @@ export default function GiftSection() {
             className="btn-regalo w-full"
           >
             <GiftIcon />
-            Sugerencia de Regalo
+            Lista de Deseos
           </button>
           <div
             className={`glass-card mt-3 w-full overflow-hidden px-5 text-center transition-all duration-300 ease-out ${
-              showGift ? "card-pop max-h-52 py-4 opacity-100" : "max-h-0 py-0 opacity-0"
+              showGift ? "card-pop max-h-[34rem] py-4 opacity-100" : "max-h-0 py-0 opacity-0"
             }`}
           >
             <DragonBall stars={1} className="mx-auto mb-1 w-8 animate-glowpulse" />
-            <p className="font-display text-base font-bold leading-relaxed text-amber-700">
+            <p className="whitespace-pre-line font-display text-sm font-bold leading-relaxed text-amber-700 sm:text-base">
               {eventConfig.giftSuggestions}
             </p>
           </div>
@@ -138,9 +138,11 @@ export default function GiftSection() {
       )}
       </div>
 
-      {/* Guerreros bebé que saltan a celebrar la sugerencia */}
+      {/* Guerreros bebé que saltan a celebrar la lista:
+          solo en pantallas grandes — en mobile la lista es larga y no hay espacio */}
       {showGift &&
-        BABY_WARRIORS.map((w) => (
+        <div className="hidden sm:contents">
+        {BABY_WARRIORS.map((w) => (
           <div
             key={w.src}
             className={`pointer-events-none absolute ${w.cls}`}
@@ -154,9 +156,10 @@ export default function GiftSection() {
               sizes="(max-width: 640px) 112px, 176px"
               className="animate-bouncein h-auto w-full drop-shadow-lg"
               style={{ animationDelay: w.delay }}
-            />
-          </div>
+          />
+        </div>
         ))}
+        </div>}
 
       {/* Capa de confeti (no intercepta clicks) */}
       {confetti.length > 0 && (
