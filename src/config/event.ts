@@ -58,7 +58,7 @@ export const eventConfig = {
    * Ruta de la pista de audio dentro de /public, p. ej. "/audio/baby-goku-theme.mp3".
    * Vacío = controles de audio deshabilitados. Usa solo música autorizada.
    */
-  audioSrc: "/audio/dbgt.mp3",
+  audioSrc: "/audio/angeles-fuimos.mp3",
 } as const;
 
 /** Dígitos del número de WhatsApp listos para wa.me, o null si no está configurado. */

@@ -1,8 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { eventConfig, mapsUrl, whatsappUrl } from "@/config/event";
+import { mapsUrl, whatsappUrl } from "@/config/event";
 
 function WhatsAppIcon() {
   return (
@@ -21,23 +18,10 @@ function MapPinIcon() {
   );
 }
 
-function GiftIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="8" width="18" height="4" rx="1" />
-      <path d="M12 8v13" />
-      <path d="M5 12v9h14v-9" />
-      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
-    </svg>
-  );
-}
-
-/** Botones de acción: RSVP por WhatsApp, ubicación en Maps y sugerencia de regalo. */
+/** Botones de acción: RSVP por WhatsApp y ubicación en Maps. */
 export default function ActionsSection() {
   const wa = whatsappUrl();
   const maps = mapsUrl();
-  const gift = eventConfig.giftUrl.trim() ? eventConfig.giftUrl : null;
-  const [showGift, setShowGift] = useState(false);
 
   return (
     <section
@@ -102,38 +86,6 @@ export default function ActionsSection() {
         </div>
       )}
 
-      {gift ? (
-        <a
-          href={gift}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-sky w-full max-w-sm"
-        >
-          <GiftIcon />
-          Sugerencia de Regalo
-        </a>
-      ) : (
-        <div className="flex w-full max-w-sm flex-col items-center">
-          <button
-            type="button"
-            onClick={() => setShowGift((v) => !v)}
-            aria-expanded={showGift}
-            className="btn-sky w-full"
-          >
-            <GiftIcon />
-            Sugerencia de Regalo
-          </button>
-          <div
-            className={`glass-card mt-3 w-full overflow-hidden px-5 text-center transition-all duration-300 ease-out ${
-              showGift ? "max-h-40 py-4 opacity-100" : "max-h-0 py-0 opacity-0"
-            }`}
-          >
-            <p className="text-sm leading-relaxed text-sky-800">
-              {eventConfig.giftSuggestions}
-            </p>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

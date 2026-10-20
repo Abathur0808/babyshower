@@ -112,6 +112,22 @@ export default function EventDetails() {
           </p>
         </div>
       ) : (
+      <div className="relative">
+        {/* Goku bebé asomándose a celebrar la invitación */}
+        <div
+          className="animate-drift absolute -right-3 bottom-0 z-10 w-20 sm:-right-8 sm:w-28"
+          style={{ animationDuration: "4.4s" }}
+        >
+          <Image
+            src="/images/ssj1.png"
+            alt="Goku bebé guerrero"
+            width={1193}
+            height={1429}
+            sizes="(max-width: 640px) 80px, 112px"
+            className="animate-bouncein h-auto w-full drop-shadow-lg"
+            style={{ animationDelay: "0.5s" }}
+          />
+        </div>
       <div className="card-anime animate-bouncein px-7 py-10 sm:px-10">
         <div
           className="animate-floaty -mt-24 flex justify-center"
@@ -186,6 +202,7 @@ export default function EventDetails() {
             />
           )}
         </ul>
+      </div>
       </div>
       )}
     </section>

@@ -126,6 +126,14 @@ export default function ShenLong() {
           0%, 100% { transform: rotate(30deg); }
           50%      { transform: rotate(50deg); }
         }
+
+        /* En pantallas chicas el dragón se aligera: un tercio menos
+           de segmentos animados (el vuelo se ve igual) */
+        @media (max-width: 640px) {
+          .segmento-dragon:nth-child(3n) {
+            display: none;
+          }
+        }
       `}</style>
     </div>
   );

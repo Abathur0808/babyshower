@@ -7,6 +7,7 @@ import HeroSection from "@/components/HeroSection";
 import EventDetails from "@/components/EventDetails";
 import CountdownSection from "@/components/CountdownSection";
 import ActionsSection from "@/components/ActionsSection";
+import GiftSection from "@/components/GiftSection";
 import ClosingSection from "@/components/ClosingSection";
 import ShenLong from "@/components/ShenLong";
 import Garland from "@/components/Garland";
@@ -22,7 +23,7 @@ export default function Invitation() {
   const bookRef = useRef<HTMLElement | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [page, setPage] = useState(0);
-  const TOTAL_PAGES = 5;
+  const TOTAL_PAGES = 6;
 
   // Libro horizontal navegado SOLO con botones: el contenedor no
   // permite scroll (overflow-x-hidden), los saltos son programáticos.
@@ -124,6 +125,11 @@ export default function Invitation() {
           <div className="book-page flex h-full w-screen flex-none snap-start snap-always overflow-y-auto">
             <div className="m-auto w-full">
               <ActionsSection />
+            </div>
+          </div>
+          <div className="book-page flex h-full w-screen flex-none snap-start snap-always overflow-y-auto">
+            <div className="m-auto w-full">
+              <GiftSection />
             </div>
           </div>
           <div className="book-page flex h-full w-screen flex-none snap-start snap-always overflow-y-auto">
