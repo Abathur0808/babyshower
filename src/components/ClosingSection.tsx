@@ -15,21 +15,36 @@ export default function ClosingSection({ musicRef }: Props) {
   const sfx = useRef<HTMLAudioElement | null>(null);
 
   // Toca el kamehameha: suena desde el inicio aunque se repita el clic.
-  // Ducking: la música de fondo baja mucho mientras dura el audio.
+  // Ducking: la música de fondo baja al mínimo mientras dura el audio.
   const playSfx = () => {
     sfx.current ??= new Audio("/audio/increible.mp3");
-    sfx.current.currentTime = 0;
+    const a = sfx.current;
+    a.currentTime = 0;
 
     const music = musicRef?.current;
-    const prevVolume = music?.volume ?? 1;
-    if (music) music.volume = 0;
+    let restore: () => void = () => {};
 
-    const restore = () => {
-      if (music) music.volume = prevVolume;
-    };
+    if (music && !music.paused) {
+      const prevVolume = music.volume;
+      music.volume = 0;
 
-    sfx.current.addEventListener("ended", restore, { once: true });
-    void sfx.current.play().catch(restore);
+      if (music.volume === 0) {
+        // El navegador sí deja bajar el volumen (Android/escritorio)
+        restore = () => {
+          music.volume = prevVolume;
+        };
+      } else {
+        // iOS no permite cambiar el volumen por código: pausamos y reanudamos
+        music.pause();
+        restore = () => {
+          music.volume = prevVolume;
+          void music.play().catch(() => {});
+        };
+      }
+    }
+
+    a.addEventListener("ended", restore, { once: true });
+    void a.play().catch(restore);
   };
 
   return (
